@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HighlightDirective } from '../highlight.directive';
 
 @Component({
@@ -9,5 +9,13 @@ import { HighlightDirective } from '../highlight.directive';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  @Input() title = '';
+
+  @Output() notify = new EventEmitter<string>();
+  
+    sendNotification() {
+      this.notify.emit('Header button clicked!');
+    }
 
 }
