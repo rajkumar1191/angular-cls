@@ -8,6 +8,7 @@ import { HighlightDirective } from './highlight.directive';
 import { interval, map } from 'rxjs';
 import { CustomPipePipe } from './custom-pipe.pipe';
 import { UserService } from './user.service';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import { UserService } from './user.service';
     FormsModule,
     CommonModule,
     HighlightDirective,
-    CustomPipePipe
+    CustomPipePipe,
+    UserDetailsComponent,
   ],
   providers: [UserService],
   templateUrl: './app.component.html',
@@ -75,12 +77,17 @@ export class AppComponent {
   imageURL =
     'https://firebasestorage.googleapis.com/v0/b/illusbookdata.appspot.com/o/uploads%2FA%20boy%20studying%20with%20the%20laptop%20concept%20illustration%2FA%20boy%20studying%20with%20the%20laptop%20concept%20illustration.jpg?alt=media&token=28ea8c35-070d-483d-8156-5cfcb9567c27';
 
+  userDetails: any[] = [];
 
   constructor(private userService: UserService) {
     const users = this.userService.getUser();
+    const apiUsers$ = this.userService.getUserFromApi();
+    apiUsers$.subscribe((data) => {
+      console.log('API Users:', data);
+      this.userDetails = data;
+    });
     console.log('Users:', users);
   }
-
 
   buttonClick() {
     console.log('Button clicked');
@@ -91,5 +98,4 @@ export class AppComponent {
     console.log('Notification from Footer:', message);
     this.notification = message;
   }
-
 }

@@ -1,5 +1,11 @@
 <router-outlet />
 
+<app-header
+  [title]="username"
+  (notify)="receiveNotification($event)"
+></app-header>
+
+
 <h1 [ngClass]="isEvening ? 'isActive' : 'notActive'">
   {{ title | uppercase }}
 </h1>
@@ -59,11 +65,10 @@
 <h6>Hai this is morning</h6>
 } }
 
-<app-header
-  [title]="username"
-  (notify)="receiveNotification($event)"
-></app-header>
+
 
 <app-footer (notify)="receiveNotification($event)"></app-footer>
 
 {{ notification }}
+
+<app-user-details [userData]="userDetails"></app-user-details>

@@ -1,0 +1,10 @@
+.user-container {
+  display: inline-flex;
+  flex-direction: column;
+  box-shadow: 0 0 4px #ccc;
+  min-width: 230px;
+  gap: 0px;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 6px;
+}
