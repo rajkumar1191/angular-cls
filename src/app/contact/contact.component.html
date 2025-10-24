@@ -1,0 +1,59 @@
+<h3>Contact form</h3>
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+  <label for="name">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    [(ngModel)]="userDetails.name"
+    required
+  />
+
+  <label for="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    [(ngModel)]="userDetails.email"
+    required
+  />
+
+  <label for="mobile">Mobile:</label>
+  <input
+    type="tel"
+    id="mobile"
+    name="mobile"
+    [(ngModel)]="userDetails.mobile"
+  />
+
+  <label for="message">Message:</label>
+  <textarea
+    id="message"
+    name="message"
+    [(ngModel)]="userDetails.message"
+  ></textarea>
+
+  <button type="submit" [disabled]="contactForm.invalid">Submit</button>
+  <button type="reset">Clear</button>
+</form>
+
+<form [formGroup]="enquiryForm" (ngSubmit)="onReactiveSubmit()">
+  <h3>Reactive Contact Form</h3>
+  <label for="reactiveName">Name:</label>
+  <input type="text" id="reactiveName" formControlName="contactName" required />
+
+  <label for="reactiveEmail">Email:</label>
+  <input type="email" id="reactiveEmail" formControlName="contactEmail" />
+
+  <label for="reactiveMobile">Mobile:</label>
+  <input type="text" id="reactiveMobile" formControlName="contactMobile" />
+
+  <label for="reactiveSubject">Subject:</label>
+  <input type="tel" id="reactiveSubject" formControlName="subject" />
+
+  <label for="reactiveMessage">Message:</label>
+  <textarea id="reactiveMessage" formControlName="desc"></textarea>
+
+  <button type="submit" [disabled]="enquiryForm.invalid">Submit</button>
+  <button type="reset">Clear</button>
+</form>
