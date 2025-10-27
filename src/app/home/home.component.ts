@@ -8,6 +8,7 @@ import { HighlightDirective } from '../highlight.directive';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { interval, map } from 'rxjs';
 import { UserService } from '../user.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import { UserService } from '../user.service';
     CommonModule,
     HighlightDirective,
     CustomPipePipe,
-  ],
+    RouterLink
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -75,7 +77,7 @@ export class HomeComponent {
 
   userDetails: any[] = [];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public router: Router) {
     const users = this.userService.getUser();
     const apiUsers$ = this.userService.getUserFromApi();
     apiUsers$.subscribe((data) => {
@@ -93,5 +95,9 @@ export class HomeComponent {
   receiveNotification(message: string) {
     console.log('Notification from Footer:', message);
     this.notification = message;
+  }
+
+  navigateTo(){
+    this.router.navigate(['/services', 101]);
   }
 }

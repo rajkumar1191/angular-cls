@@ -24,6 +24,10 @@ export class ContactComponent {
     desc: new FormControl(''),
   });
 
+  constructor() {
+    localStorage.setItem('isLoggedIn', 'true');
+  }
+
   /*
      template driven form - simple and easy to use but less scalable
      reactive form - more scalable and robust but complex to implement

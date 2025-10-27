@@ -62,6 +62,12 @@
 <h6>Hai this is morning</h6>
 } }
 
+<button (click)="navigateTo()">Go to Services</button>
+
+<a [routerLink]="['/services', 101]" [queryParams]="{ data: '123' }"
+  >Go to Services with ID 101</a
+>
+
 <app-footer (notify)="receiveNotification($event)"></app-footer>
 
 {{ notification }}
