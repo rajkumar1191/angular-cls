@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CustomPipePipe } from '../custom-pipe.pipe';
 import { FooterComponent } from '../footer/footer.component';
@@ -20,12 +27,12 @@ import { Router, RouterLink } from '@angular/router';
     CommonModule,
     HighlightDirective,
     CustomPipePipe,
-    RouterLink
-],
+    RouterLink,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
   title = 'angular';
   count = 0;
 
@@ -77,6 +84,11 @@ export class HomeComponent {
 
   userDetails: any[] = [];
 
+  messageTxt = 'This is content projection example';
+
+  @ViewChild('titleElement') titleRef!: ElementRef;
+  @ViewChild('counterRef') counterRef!: ElementRef;
+
   constructor(private userService: UserService, public router: Router) {
     const users = this.userService.getUser();
     const apiUsers$ = this.userService.getUserFromApi();
@@ -85,6 +97,10 @@ export class HomeComponent {
       this.userDetails = data;
     });
     console.log('Users:', users);
+  }
+
+  ngOnInit(): void {
+    console.log('HomeComponent initialized');
   }
 
   buttonClick() {
@@ -97,7 +113,18 @@ export class HomeComponent {
     this.notification = message;
   }
 
-  navigateTo(){
+  navigateTo() {
     this.router.navigate(['/services', 101]);
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Title Element:', this.titleRef.nativeElement);
+    this.titleRef.nativeElement.style.color = 'blue';
+
+  }
+
+  ngAfterViewChecked(): void {
+    // console.log('Counter Element:', this.counterRef.nativeElement);
+    // console.log(this.counterRef.nativeElement.innerText);
   }
 }

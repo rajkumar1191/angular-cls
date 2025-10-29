@@ -3,11 +3,11 @@
   (notify)="receiveNotification($event)"
 ></app-header>
 
-<h1 [ngClass]="isEvening ? 'isActive' : 'notActive'">
+<h1 [ngClass]="isEvening ? 'isActive' : 'notActive'" #titleElement>
   {{ title | uppercase }}
 </h1>
 
-<h3>{{ today | date : "dd/MM/YYY" }}</h3>
+<h3  #counterRef>{{ today | date : "dd/MM/YYY" }}</h3>
 
 <h3>{{ amount | currency : "INR" }}</h3>
 
@@ -34,7 +34,7 @@
   Name: {{ username }}
 </h5>
 
-<p>{{ counter$ | async }}</p>
+<!-- <p>{{ counter$ | async }}</p> -->
 
 @if(isEvening) {
 <h6>Hai this is evening</h6>
@@ -71,3 +71,11 @@
 <app-footer (notify)="receiveNotification($event)"></app-footer>
 
 {{ notification }}
+
+<app-header>
+  <p #contentProject>{{messageTxt}}</p>
+</app-header>
+
+<button (click)="messageTxt = 'Content updated from Home Component'">
+  Update Content
+</button>
