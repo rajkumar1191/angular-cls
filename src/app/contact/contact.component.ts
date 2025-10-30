@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-contact',
@@ -8,7 +15,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   userDetails = {
     name: '',
     email: '',
@@ -16,16 +23,39 @@ export class ContactComponent {
     message: '',
   };
 
+  message = '';
+
   enquiryForm = new FormGroup({
     contactName: new FormControl(''),
     contactEmail: new FormControl('', [Validators.required, Validators.email]),
-    contactMobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    contactMobile: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
     subject: new FormControl(''),
     desc: new FormControl(''),
   });
 
-  constructor() {
+  constructor(private messageService: MessageService) {
     localStorage.setItem('isLoggedIn', 'true');
+    this.messageService.message$.subscribe((msg) => {
+      this.message = msg;
+      console.log('message from subject', this.message);
+    });
+
+    this.messageService.messageBeh$.subscribe((msg) => {
+      this.message = msg;
+      console.log('message from bsubject', this.message);
+    });
+
+    this.messageService.messageReplay$.subscribe((msg) => {
+      // this.message = msg;
+      console.log('message from resubject', msg);
+    });
+  }
+
+  ngOnInit(): void {
+    console.log(this.message);
   }
 
   /*
@@ -34,7 +64,6 @@ export class ContactComponent {
   */
 
   onSubmit(form: any) {
-
     console.log('Form Submitted', form.value);
 
     this.enquiryForm.get('contactName')?.setValue(form.value.name);
@@ -43,6 +72,10 @@ export class ContactComponent {
   }
 
   onReactiveSubmit() {
-    console.log('Reactive Form Submitted', this.enquiryForm.value, this.enquiryForm.valid);
+    console.log(
+      'Reactive Form Submitted',
+      this.enquiryForm.value,
+      this.enquiryForm.valid
+    );
   }
 }

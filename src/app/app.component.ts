@@ -20,5 +20,12 @@ export class AppComponent {
   ngAfterContentChecked() - Called after the projected content has been checked by the change detection mechanism.
     ngOnDestroy() - Called just before the component is destroyed.  
 
+
+
+    Subjects -> rxjs -> Reactive JavaScript -> broadcast stream of data -> Observable will emit data to multiple subscribers
+
+    subject -> emits values whenever it got subscribe
+    behaviourSubject -> initial value -> current value -> it will sent to the subscriber 
+    replaySubject -> collect and store some mentioned buffer of data. Once it got subscribe it will pass stored data to subscriber and then it will pass new data 
   */
 }

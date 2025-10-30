@@ -29,12 +29,12 @@ export class HeaderComponent implements AfterContentInit, AfterContentChecked {
   }
 
   ngAfterContentInit(): void {
-    console.log('HeaderComponent content initialized');
-    console.log(this.contentProject.nativeElement.innerText);
+    // console.log('HeaderComponent content initialized');
+    // console.log(this.contentProject.nativeElement.innerText);
   }
 
   ngAfterContentChecked(): void {
-    console.log('HeaderComponent content checked');
-    console.log(this.contentProject?.nativeElement?.innerText);
+    // console.log('HeaderComponent content checked');
+    // console.log(this.contentProject?.nativeElement?.innerText);
   }
 }

@@ -16,6 +16,7 @@ import { UserDetailsComponent } from '../user-details/user-details.component';
 import { interval, map } from 'rxjs';
 import { UserService } from '../user.service';
 import { Router, RouterLink } from '@angular/router';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-home',
@@ -89,7 +90,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('titleElement') titleRef!: ElementRef;
   @ViewChild('counterRef') counterRef!: ElementRef;
 
-  constructor(private userService: UserService, public router: Router) {
+  constructor(private userService: UserService, public router: Router, private messageService: MessageService) {
     const users = this.userService.getUser();
     const apiUsers$ = this.userService.getUserFromApi();
     apiUsers$.subscribe((data) => {
@@ -109,7 +110,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   receiveNotification(message: string) {
-    console.log('Notification from Footer:', message);
+    // console.log('Notification from Footer:', message);
     this.notification = message;
   }
 
@@ -118,7 +119,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewInit(): void {
-    console.log('Title Element:', this.titleRef.nativeElement);
+    // console.log('Title Element:', this.titleRef.nativeElement);
     this.titleRef.nativeElement.style.color = 'blue';
 
   }
@@ -126,5 +127,14 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     // console.log('Counter Element:', this.counterRef.nativeElement);
     // console.log(this.counterRef.nativeElement.innerText);
+  }
+
+  updateBtn(){
+    this.messageTxt = 'Content updated from Home Component';
+    this.messageService.sendMessage(this.messageTxt)
+  }
+
+  sendData(){
+    this.messageService.setInputData(this.username)
   }
 }

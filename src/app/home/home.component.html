@@ -30,6 +30,9 @@
 
 <input [(ngModel)]="username" name="username" placeholder="Enter name" />
 
+<button (click)="sendData()">Submit</button>
+
+
 <h5 [ngStyle]="{ color: username.length > 0 ? 'blue' : 'red' }">
   Name: {{ username }}
 </h5>
@@ -76,6 +79,6 @@
   <p #contentProject>{{messageTxt}}</p>
 </app-header>
 
-<button (click)="messageTxt = 'Content updated from Home Component'">
+<button (click)="updateBtn()">
   Update Content
 </button>
