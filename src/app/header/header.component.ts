@@ -1,6 +1,8 @@
 import {
   AfterContentChecked,
   AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
@@ -16,6 +18,7 @@ import { HighlightDirective } from '../highlight.directive';
   imports: [HighlightDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements AfterContentInit, AfterContentChecked {
   @ContentChild('contentProject') contentProject!: ElementRef;
@@ -23,6 +26,8 @@ export class HeaderComponent implements AfterContentInit, AfterContentChecked {
   @Input() title = '';
 
   @Output() notify = new EventEmitter<string>();
+
+  constructor(public cdRef: ChangeDetectorRef) {}
 
   sendNotification() {
     this.notify.emit('Header button clicked!');

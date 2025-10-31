@@ -1,0 +1,24 @@
+<!-- <h2>Angular Signals Demo</h2>
+
+<p>Count: {{ count() }}</p>
+<p>Double Count (computed): {{ doubleCount() }}</p>
+
+<button (click)="increment()">Increment</button>
+<button (click)="decrement()">Decrement</button>
+<button (click)="reset()">Reset</button> -->
+
+<h2>My todo list</h2>
+<input [(ngModel)]="newTask" placeholder="Add Task" />
+<button (click)="addTodo()">Add</button>
+
+<ul>
+  @for (todo of todos(); track $index) {
+  <li>
+    <input type="checkbox" [(ngModel)]="todo.done" (change)="toggle(todo.id)" />{{ todo.name
+    }}<button (click)="remove(todo.id)">X</button>
+  </li>
+  }
+</ul>
+
+<p>Total Todo Count: {{ todos().length }}</p>
+<p>Completed Todo Count: {{ completedCount() }}</p>

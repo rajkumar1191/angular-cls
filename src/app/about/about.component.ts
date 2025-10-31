@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AppTodoComponent } from '../app-todo/app-todo.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [],
+  imports: [AppTodoComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })
