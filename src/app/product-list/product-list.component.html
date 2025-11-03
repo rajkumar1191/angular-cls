@@ -1,0 +1,10 @@
+<button (click)="onLoad()">Load Products</button>
+<button (click)="onAdd()">Add Product</button>
+
+@if(loading$ | async){
+<div>Loading ...</div>
+}
+
+<ul>
+  <li *ngFor="let product of product$ | async">{{ product.name }}</li>
+</ul>
