@@ -7,18 +7,43 @@
 <button (click)="decrement()">Decrement</button>
 <button (click)="reset()">Reset</button> -->
 
-<h2>My todo list</h2>
-<input [(ngModel)]="newTask" placeholder="Add Task" />
-<button (click)="addTodo()">Add</button>
-
-<ul>
-  @for (todo of todos(); track $index) {
-  <li>
-    <input type="checkbox" [(ngModel)]="todo.done" (change)="toggle(todo.id)" />{{ todo.name
-    }}<button (click)="remove(todo.id)">X</button>
-  </li>
+<h2>My Todo List</h2>
+<mat-card appearance="outlined">
+  <mat-form-field appearance="outline">
+    <mat-label>Add Task</mat-label>
+    <input matInput [(ngModel)]="newTask" placeholder="New task" />
+  </mat-form-field>
+  <button
+    style="margin-left: 1rem"
+    mat-raised-button
+    color="primary"
+    (click)="addTodo()"
+  >
+    Add
+  </button>
+  @if (todos().length > 0) {
+  <mat-divider></mat-divider>
+  <mat-list>
+    @for (todo of todos(); track todo.id) {
+    <mat-list-item>
+      <mat-checkbox [checked]="todo.done" (change)="toggle(todo.id)">
+        {{ todo.name }}
+      </mat-checkbox>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="remove(todo.id)"
+        style="margin-left: auto"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    }
+  </mat-list>
   }
-</ul>
+</mat-card>
 
-<p>Total Todo Count: {{ todos().length }}</p>
-<p>Completed Todo Count: {{ completedCount() }}</p>
+<mat-divider></mat-divider>
+
+<p>Total: {{ todos().length }}</p>
+<p>Completed: {{ completedCount() }}</p>
